@@ -1,0 +1,15 @@
+---
+# elasticsearch templates are not managed by curator.
+actions:
+  1:
+    action: rollover
+    description: >-
+      Rollover the index associated with alias 'name'.  Specify new index name using
+      date math. Indicies older than the 'max_age' are rolled over. 
+    options:
+      name: log-write
+      new_index: "<log-index-{now/m{YYYY_MM_dd_HH_mm}}>"
+      conditions:
+        max_age: 130s
+        max_docs: 2
+      wait_for_active_shards: 1
